@@ -7,6 +7,9 @@
     <div class="date">
       <p>Published on: {{ post.published_date }}</p>
     </div>
+    <div class="publisher">
+      <p>Author: {{ post.author }}</p>
+    </div>
     <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approve_comments.count }}</a>
   </div>
   {% endfor %}

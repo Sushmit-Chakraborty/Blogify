@@ -6,7 +6,33 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from blog.forms import PostForm,CommentForm
 from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
+
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from . serializers import PostSerializer
 # Create your views here.
+
+#API VIEWS#
+
+class PostList(APIView):
+    def get(self,request):
+        post1 = Post.objects.all()
+        serializer = PostSerializer(post1,many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
+
+###########
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
+
 
 class AboutView(TemplateView):
     template_name = 'about.html'

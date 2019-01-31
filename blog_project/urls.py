@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth import views
+from rest_framework.urlpatterns import format_suffix_patterns
+from blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("blog.urls")),
+    path('accounts/', include('accounts.urls')),
     path('accounts/login/',include('django.contrib.auth.urls'),name='login'),
-    path('accounts/logout/',include('django.contrib.auth.urls'),name='logout',kwargs={'next_page':'/'})
+    path('accounts/logout/',include('django.contrib.auth.urls'),name='logout',kwargs={'next_page':'/'}),
+    path('api/',views.PostList.as_view()),
 ]
